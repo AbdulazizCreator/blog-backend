@@ -29,11 +29,9 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
 
   // Create custom filename
   database_name = `photo${path.parse(file.name).ext}`;
-  console.log(database_name);
   photo = await PhotoSchema.create({ name: database_name });
 
   file.name = `${photo.id}${path.parse(file.name).ext}`;
-  console.log(file.name);
   file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
     if (err) {
       console.log(err);
@@ -54,7 +52,6 @@ exports.deleteImage = asyncHandler(async (req, res, next) => {
     await PhotoSchema.findByIdAndDelete(photo.id);
     res.status(200).json({ message: "Image deleted" });
   } catch (err) {
-    console.log(err);
     return next(new ErrorResponse(`Problem with file delete`, 500));
   }
 });

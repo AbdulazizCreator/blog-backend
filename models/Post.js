@@ -9,7 +9,6 @@ const postSchema = new mongoose.Schema(
     },
     category: {
       type: mongoose.Schema.ObjectId,
-      minLength: 3,
       ref: "Category",
       required: [true, "Please add a category"],
     },

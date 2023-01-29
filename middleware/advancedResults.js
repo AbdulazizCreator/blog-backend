@@ -1,3 +1,5 @@
+const ErrorResponse = require( "../utils/errorResponse" );
+
 const advancedResults =
   (model, populate, searchArr = []) =>
   async (req, res, next) => {
@@ -34,7 +36,6 @@ const advancedResults =
 
     // Select Fields
     if (req.query.select) {
-      console.log("Select");
       let fields = req.query.select.split(",").join(" ");
       query = query.select(fields);
     }
@@ -57,8 +58,12 @@ const advancedResults =
     if (populate) {
       query = query.populate(populate);
     }
-
-    const results = await query;
+    let results;
+    try {
+      results = await query;
+    } catch (err) {
+      return next(new ErrorResponse(`Not found ${err.value}`, 404));
+    }
 
     let pagination = {};
 
