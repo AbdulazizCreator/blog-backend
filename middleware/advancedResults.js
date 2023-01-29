@@ -25,7 +25,10 @@ const advancedResults =
         $options: "i",
       },
     }));
-    const resultQuery = { ...JSON.parse(queryStr), $or: searchQuery };
+    const resultQuery = {
+      ...JSON.parse(queryStr),
+    };
+    search && (resultQuery["$or"] = searchQuery);
     console.log(resultQuery);
     query = model.find(resultQuery);
 
