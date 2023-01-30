@@ -7,7 +7,7 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 });
 
 exports.getCategory = asyncHandler(async (req, res, next) => {
-  const category = await Category.findById(req.params.id);
+  const category = await Category.findById(req.params.id).populate("photo");
   if (!category) {
     return next(
       new ErrorResponse(`Category not found with id of ${req.params.id}`, 404)

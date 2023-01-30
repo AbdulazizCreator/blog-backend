@@ -12,6 +12,10 @@ const postSchema = new mongoose.Schema(
       ref: "Category",
       required: [true, "Please add a category"],
     },
+    tags: {
+      type: [String],
+      required: [true, "Please add a tags"],
+    },
     description: {
       type: String,
       minLength: 10,

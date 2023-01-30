@@ -6,8 +6,28 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
+exports.getLatestPost = asyncHandler(async (req, res, next) => {
+  let post = await Post.findOne()
+    .sort({ _id: -1 })
+    .limit(1)
+    .populate("user category photo");
+  res.status(200).json(post);
+});
+
+exports.getLatestPosts = asyncHandler(async (req, res, next) => {
+  let post = await Post.find()
+    .sort({ _id: -1 })
+    .limit(10)
+    .populate("user category photo");
+
+  res.status(200).json(post);
+});
+
 exports.getPost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate(
+    "user category photo"
+  );
+
   if (!post) {
     return next(
       new ErrorResponse(`Post not found with id of ${req.params.id}`, 404)

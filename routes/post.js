@@ -5,6 +5,8 @@ const {
   getPost,
   updatePost,
   deletePost,
+  getLatestPost,
+  getLatestPosts,
 } = require("../controllers/post");
 
 const advancedResults = require("../middleware/advancedResults");
@@ -16,8 +18,14 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(advancedResults(Post, null, ["title", "description"]), getPosts)
+  .get(
+    advancedResults(Post, "photo category", ["title", "description"]),
+    getPosts
+  )
   .post(protect, createPost);
+
+router.route("/lastone").get(getLatestPost);
+router.route("/lastones").get(getLatestPosts);
 
 router
   .route("/:id")
