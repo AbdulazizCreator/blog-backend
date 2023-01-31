@@ -26,6 +26,12 @@ router
 
 router.route("/lastone").get(getLatestPost);
 router.route("/lastones").get(getLatestPosts);
+router
+  .route("/user")
+  .get(
+    advancedResults(Post, "photo category", ["title", "description"], true),
+    getPosts
+  );
 
 router
   .route("/:id")

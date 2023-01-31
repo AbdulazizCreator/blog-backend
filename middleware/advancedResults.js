@@ -1,7 +1,7 @@
 const ErrorResponse = require("../utils/errorResponse");
 
 const advancedResults =
-  (model, populate, searchArr = []) =>
+  (model, populate, searchArr = [], withAuth) =>
   async (req, res, next) => {
     let query;
 
@@ -27,12 +27,14 @@ const advancedResults =
         $options: "i",
       },
     }));
-    const resultQuery = {
-      ...JSON.parse(queryStr),
-    };
+    const resultQuery = JSON.parse(queryStr);
     search && (resultQuery["$or"] = searchQuery);
-    console.log(resultQuery);
-    query = model.find(resultQuery);
+
+    if (withAuth) {
+      query = model.find({ user: req.user.id, ...resultQuery });
+    } else {
+      query = model.find(resultQuery);
+    }
 
     // Select Fields
     if (req.query.select) {
