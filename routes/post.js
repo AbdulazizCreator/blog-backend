@@ -29,6 +29,7 @@ router.route("/lastones").get(getLatestPosts);
 router
   .route("/user")
   .get(
+    protect,
     advancedResults(Post, "photo category", ["title", "description"], true),
     getPosts
   );

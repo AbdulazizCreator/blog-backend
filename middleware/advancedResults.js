@@ -30,10 +30,16 @@ const advancedResults =
     const resultQuery = JSON.parse(queryStr);
     search && (resultQuery["$or"] = searchQuery);
 
+    let total;
     if (withAuth) {
+      console.log(req.user.id);
       query = model.find({ user: req.user.id, ...resultQuery });
+      total = await model
+        .find({ user: req.user.id, ...resultQuery })
+        .countDocuments();
     } else {
       query = model.find(resultQuery);
+      total = await model.countDocuments();
     }
 
     // Select Fields
@@ -53,7 +59,6 @@ const advancedResults =
     const limit = parseInt(req.query.limit) || 10;
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
-    const total = await model.countDocuments();
 
     query = query.skip(startIndex).limit(limit);
 
