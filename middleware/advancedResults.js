@@ -78,7 +78,7 @@ const advancedResults =
     }
     pagination.limit = limit;
     pagination.page = page;
-    pagination.total = results.length;
+    pagination.total = total;
 
     res.advancedResults = {
       pagination,
