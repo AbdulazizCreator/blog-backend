@@ -38,7 +38,7 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse(`Problem with file upload`, 500));
     }
   });
-  res.status(201).json({ success: true, data: photo });
+  res.status(201).json(photo);
 });
 
 exports.deleteImage = asyncHandler(async (req, res, next) => {
