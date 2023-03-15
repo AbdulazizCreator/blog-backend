@@ -19,7 +19,7 @@ const router = express.Router();
 router
   .route("/")
   .get(
-    advancedResults(Post, "photo category", ["title", "description"]),
+    advancedResults(Post, "user photo category", ["title", "description"]),
     getPosts
   )
   .post(protect, createPost);
@@ -30,7 +30,7 @@ router
   .route("/user")
   .get(
     protect,
-    advancedResults(Post, "photo category", ["title", "description"], true),
+    advancedResults(Post, "user photo category", ["title", "description"], true),
     getPosts
   );
 
