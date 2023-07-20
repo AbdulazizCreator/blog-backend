@@ -167,8 +167,13 @@ const sendTokenResponse = (user, statusCode, res) => {
   if (process.env.NODE_ENV === "production") {
     options.secure = true;
   }
+  let data = {
+    expire: Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000,
+    token,
+    role: user.role,
+  };
   res
     .status(statusCode)
-    .cookie("token", token, options)
-    .json({ success: true, token });
+    .cookie("TOKEN", token, options)
+    .json({ success: true, data });
 };
