@@ -31,6 +31,7 @@ const advancedResults =
     search && (resultQuery["$or"] = searchQuery);
 
     let total;
+
     if (withAuth) {
       console.log(req.user.id);
       query = model.find({ user: req.user.id, ...resultQuery });
@@ -39,7 +40,7 @@ const advancedResults =
         .countDocuments();
     } else {
       query = model.find(resultQuery);
-      total = await model.countDocuments();
+      total = await model.find(resultQuery).countDocuments();
     }
 
     // Select Fields
