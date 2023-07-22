@@ -146,7 +146,7 @@ exports.uploadUserImage = asyncHandler(async (req, res, next) => {
 exports.deleteUserImage = asyncHandler(async (req, res, next) => {
   try {
     fs.unlinkSync(`${process.env.FILE_UPLOAD_PATH}/${req.params.file}`);
-    await User.findByIdAndUpdate(req.user.id, { photo: undefined });
+    await User.findByIdAndUpdate(req.user.id, { photo: null });
     res.status(200).json({ message: "Image deleted" });
   } catch (err) {
     console.log(err);
