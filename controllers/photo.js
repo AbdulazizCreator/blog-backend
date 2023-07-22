@@ -3,16 +3,16 @@ const fs = require("fs");
 const ErrorResponse = require("../utils/errorResponse");
 const PhotoSchema = require("../models/Photo");
 const asyncHandler = require("../middleware/async");
-const cloudinary = require("cloudinary");
+// const cloudinary = require("cloudinary");
 
 // upload image
 exports.uploadImage = asyncHandler(async (req, res, next) => {
   // we will upload image on cloudinary
-  cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_API_KEY,
-    api_secret: process.env.CLOUD_API_SECRET,
-  });
+  // cloudinary.config({
+  //   cloud_name: process.env.CLOUD_NAME,
+  //   api_key: process.env.CLOUD_API_KEY,
+  //   api_secret: process.env.CLOUD_API_SECRET,
+  // });
 
   if (!req.files) {
     return next(new ErrorResponse("Please upload a file", 400));
