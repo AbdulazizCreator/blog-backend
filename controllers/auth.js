@@ -140,7 +140,7 @@ exports.uploadUserImage = asyncHandler(async (req, res, next) => {
     await User.findByIdAndUpdate(req.user.id, { photo: file.name });
   });
 
-  res.status(201).json({ success: true, data: file.name });
+  res.status(201).json(file.name);
 });
 
 exports.deleteUserImage = asyncHandler(async (req, res, next) => {
