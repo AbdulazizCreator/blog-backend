@@ -61,7 +61,7 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
   //   }
   // );
 
-  // res.status(201).json(photo);
+  res.status(201).json(photo);
 });
 
 exports.deleteImage = asyncHandler(async (req, res, next) => {
