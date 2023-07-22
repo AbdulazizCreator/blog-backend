@@ -3,9 +3,17 @@ const fs = require("fs");
 const ErrorResponse = require("../utils/errorResponse");
 const PhotoSchema = require("../models/Photo");
 const asyncHandler = require("../middleware/async");
+const cloudinary = require("cloudinary");
 
 // upload image
 exports.uploadImage = asyncHandler(async (req, res, next) => {
+  // we will upload image on cloudinary
+  cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
+  });
+
   if (!req.files) {
     return next(new ErrorResponse("Please upload a file", 400));
   }
@@ -32,13 +40,28 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
   photo = await PhotoSchema.create({ name: database_name });
 
   file.name = `${photo.id}${path.parse(file.name).ext}`;
-  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async (err) => {
+
+  let file_name = `${process.env.FILE_UPLOAD_PATH}/${file.name}`;
+
+  file.mv(file_name, async (err) => {
     if (err) {
       console.log(err);
       return next(new ErrorResponse(`Problem with file upload`, 500));
     }
   });
-  res.status(201).json(photo);
+  // cloudinary.v2.uploader.upload(
+  //   file_name,
+  //   { folder: "blog" },
+  //   (err, result) => {
+  //     if (err) throw err;
+  //     console.log(result);
+  //     res
+  //       .status(201)
+  //       .json({ public_id: result.public_id, url: result.secure_url });
+  //   }
+  // );
+
+  // res.status(201).json(photo);
 });
 
 exports.deleteImage = asyncHandler(async (req, res, next) => {
