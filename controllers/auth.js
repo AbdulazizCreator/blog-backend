@@ -86,9 +86,14 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Current Password is incorrect", 401));
   }
 
-  user.password = req.body.newPassword;
-
-  await user.save();
+  user = await User.findByIdAndUpdate(
+    req.user._id,
+    { password: req.body.newPassword },
+    {
+      new: true,
+      runValidors: true,
+    }
+  );
 
   sendTokenResponse(user, 200, res);
 });
