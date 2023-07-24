@@ -17,7 +17,7 @@ exports.getComment = asyncHandler(async (req, res, next) => {
 });
 
 exports.createComment = asyncHandler(async (req, res) => {
-  const comment = await Comment.create(req.body);
+  const comment = await Comment.create({ ...req.body, user: req.user._id });
   res.status(201).json(comment);
 });
 

@@ -21,7 +21,7 @@ router
 
 router
   .route("/:id")
-  .get(getComment)
+  .get(protect, getComment)
   .put(protect, updateComment)
   .delete(protect, deleteComment);
 

@@ -4,7 +4,8 @@ const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      minLength: 3,
+      minLength: 5,
+      maxLength: 50,
       required: [true, "Please add a name"],
     },
     category: {
@@ -19,6 +20,7 @@ const postSchema = new mongoose.Schema(
     description: {
       type: String,
       minLength: 10,
+      maxLength: 500,
       required: [true, "Please add a description"],
     },
     user: {

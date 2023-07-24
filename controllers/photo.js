@@ -49,6 +49,7 @@ exports.uploadImage = asyncHandler(async (req, res, next) => {
       return next(new ErrorResponse(`Problem with file upload`, 500));
     }
   });
+  
   // cloudinary.v2.uploader.upload(
   //   file_name,
   //   { folder: "blog" },
