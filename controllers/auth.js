@@ -11,6 +11,8 @@ const ErrorResponse = require("../utils/errorResponse");
 exports.register = asyncHandler(async (req, res, next) => {
   const { first_name, last_name, password, username } = req.body;
 
+  username = username.trim().toLowerCase();
+
   // Check for user
   const user = await User.findOne({ username });
 
@@ -35,6 +37,8 @@ exports.register = asyncHandler(async (req, res, next) => {
 
 exports.login = asyncHandler(async (req, res, next) => {
   const { username, password } = req.body;
+
+  username = username.trim().toLowerCase();
 
   if (!username || !password) {
     return next(
