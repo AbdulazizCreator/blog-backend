@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       select: false,
-      minlenght: 6,
+      minlength: 6,
       required: [true, "Please add an password"],
     },
     role: {
