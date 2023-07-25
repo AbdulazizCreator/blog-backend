@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       select: false,
-      minlength: 6,
+      minlength: 5,
       required: [true, "Please add an password"],
     },
     role: {
@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
     },
     info: {
       type: String,
-      minlength: 10,
+      minlength: 5,
     },
     phoneNumber: {
       type: String,
