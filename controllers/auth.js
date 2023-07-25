@@ -9,7 +9,7 @@ const ErrorResponse = require("../utils/errorResponse");
 // @access public
 
 exports.register = asyncHandler(async (req, res, next) => {
-  const { first_name, last_name, password, username } = req.body;
+  let { first_name, last_name, password, username } = req.body;
 
   username = username.trim().toLowerCase();
 
@@ -36,7 +36,7 @@ exports.register = asyncHandler(async (req, res, next) => {
 // @access public
 
 exports.login = asyncHandler(async (req, res, next) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
 
   username = username.trim().toLowerCase();
 

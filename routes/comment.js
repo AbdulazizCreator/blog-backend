@@ -8,7 +8,7 @@ const {
 } = require("../controllers/comment");
 
 const advancedResults = require("../middleware/advancedResults");
-const { protect } = require("../middleware/auth");
+const { protect, authorize } = require("../middleware/auth");
 
 const Comment = require("../models/Comment");
 
@@ -16,7 +16,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(advancedResults(Comment), getComments)
+  .get(protect, authorize("admin"), advancedResults(Comment), getComments)
   .post(protect, createComment);
 
 router
