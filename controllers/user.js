@@ -25,8 +25,8 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 // @access Private/Admin
 
 exports.createUser = asyncHandler(async (req, res, next) => {
-  let new_user = await User.create(req.body);
-  res.status(201).json({ success: true, data: new_user });
+  let newUser = await User.create(req.body);
+  res.status(201).json(newUser);
 });
 
 // @desc   Update user
@@ -39,7 +39,7 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
     runValidators: true,
   });
 
-  res.status(200).json({ success: true, data: user });
+  res.status(200).json(user);
 });
 
 // @desc   Delete user
@@ -49,5 +49,5 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
 exports.deleteUser = asyncHandler(async (req, res, next) => {
   await User.findByIdAndDelete(req.params.id);
 
-  res.status(200).json({ success: true, data: {} });
+  res.status(200).json(null);
 });
